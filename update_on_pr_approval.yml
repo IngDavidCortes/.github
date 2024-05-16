@@ -1,0 +1,17 @@
+name: Update local project on PR approval
+
+on:
+  pull_request:
+    types: [review_requested, review_approved]
+
+jobs:
+  update_project:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Update local repository
+      run: |
+        git pull origin ${{ github.event.pull_request.head.ref }}
